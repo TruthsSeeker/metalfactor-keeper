@@ -52,7 +52,6 @@ func main() {
 	}
 	statement.Exec()
 
-	fmt.Println("Token ", Token)
 	dg, err := discordgo.New("Bot " + Token)
 	defer dg.Close()
 	if err != nil {
