@@ -16,9 +16,16 @@ import (
 )
 
 var (
+	// Token Discord bot token
 	Token      string
+
+	// DBFilepath path to sqlite db
 	DBFilepath string = "campaigns.db"
+
+	// DB Database connection
 	DB *sql.DB
+
+	// ShantyURLS random sea shanties' urls
 	ShantyURLS []string = []string{
 		"https://www.youtube.com/watch?v=-CuyLbC2TZo",
 		"https://www.youtube.com/watch?v=KGwDl_0mAys",
