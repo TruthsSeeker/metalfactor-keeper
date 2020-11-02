@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
+	"math/rand"
 	"os"
 	"os/signal"
 	"strconv"
@@ -18,6 +19,10 @@ var (
 	Token      string
 	DBFilepath string = "campaigns.db"
 	DB *sql.DB
+	ShantyURLS []string = []string{
+		"https://www.youtube.com/watch?v=-CuyLbC2TZo",
+		"https://www.youtube.com/watch?v=KGwDl_0mAys",
+		"https://www.youtube.com/watch?v=QOfC1PEKt1U"}
 )
 
 func init() {
@@ -85,6 +90,7 @@ func messageCreated(s *discordgo.Session, m *discordgo.MessageCreate) {
 
 	if len(args) == 1 {
 		s.ChannelMessageSend(m.ChannelID, "Hi!")
+		return
 	}
 
 	if args[1] == "help" {
@@ -102,6 +108,7 @@ func messageCreated(s *discordgo.Session, m *discordgo.MessageCreate) {
 		args[1] != "set" &&
 		args[1] != "start" &&
 		args[1] != "check" &&
+		args[1] != "shanty" &&
 		args[1] != "rickroll" {
 		s.ChannelMessageSend(m.ChannelID, "Unknown command, type `*mf help` for a list of commands")
 		return
@@ -181,7 +188,12 @@ func messageCreated(s *discordgo.Session, m *discordgo.MessageCreate) {
 	case "rickroll":
 		s.ChannelMessageSend(m.ChannelID, "https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 		break
+
+	case "shanty":
+		s.ChannelMessageSend(m.ChannelID, ShantyURLS[rand.Int() % len(ShantyURLS)])
+		break
 	}
+
 }
 
 func dbExists(path string) bool {
